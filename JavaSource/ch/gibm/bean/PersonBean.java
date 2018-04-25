@@ -135,7 +135,7 @@ public class PersonBean extends AbstractBean implements Serializable {
 
 	public String editPersonLanguages() {
 		ELFlash.getFlash().put(SELECTED_PERSON, person);
-		return "/pages/public/person/personLanguages/personLanguages.xhtml";
+		return "/pages/protected/admin/person/personLanguages/personLanguages.xhtml";
 	}
 	
 	public void setCityToPerson() {
@@ -168,7 +168,7 @@ public class PersonBean extends AbstractBean implements Serializable {
 
 	public String editPersonCity() {
 		ELFlash.getFlash().put(SELECTED_PERSON, person);
-		return "/pages/public/person/personCity/personCity.xhtml";
+		return "/pages/protected/admin/person/personCity/personCity.xhtml";
 	}
 
 	public PersonFacade getPersonFacade() {

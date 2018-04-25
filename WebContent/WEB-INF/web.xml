@@ -11,10 +11,51 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>pages/public/index.xhtml</welcome-file>
+    <welcome-file>pages/protected/index.xhtml</welcome-file>
   </welcome-file-list>
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
+  
+  <security-constraint>
+	<display-name>IndexPage</display-name>
+	<web-resource-collection>
+	  <web-resource-name>start</web-resource-name>
+	  <description/>
+	  <url-pattern>/pages/protected/*</url-pattern>
+	</web-resource-collection>
+	<auth-constraint>
+	  <description/>
+	  <role-name>USER</role-name>
+	  <role-name>ADMIN</role-name>
+	</auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <display-name>AdminPages</display-name>
+	<web-resource-collection>
+	  <web-resource-name>admin</web-resource-name>
+	  <description/>
+	  <url-pattern>/pages/protected/admin/*</url-pattern>
+	</web-resource-collection>
+	<auth-constraint>
+	  <description/>
+	  <role-name>ADMIN</role-name>
+	</auth-constraint>
+  </security-constraint>
+  <security-role>
+	<description/>
+	<role-name>USER</role-name>
+  </security-role>
+  <security-role>
+	<description/>
+	<role-name>ADMIN</role-name>
+  </security-role>
+  <login-config>
+	<auth-method>FORM</auth-method>
+	<form-login-config>
+	  <form-login-page>/pages/public/login.xhtml</form-login-page>
+	  <form-error-page>/pages/public/accessDenied.xhtml</form-error-page>
+	</form-login-config>
+  </login-config>
 </web-app>

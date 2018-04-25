@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
 <h:body>
-	<ui:composition template="/pages/public/templates/master.xhtml">
+	<ui:composition template="/pages/protected/templates/master.xhtml">
 		<ui:define name="divMain">
 			<h:form id="personsForm">
 				<p:dataTable id="personsTable" value="#{personBean.allPersons}" var="person" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
@@ -21,33 +21,33 @@
 							<f:setPropertyActionListener target="#{personBean.personWithLanguagesForDetail}" value="#{person}" />
 						</p:commandButton> 
 						<p:spacer width="10px" />
-						<p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":personUpdateDialogForm" onclick="PF('personUpdateDialogWidget').show()" >
+						<p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":personUpdateDialogForm" onclick="PF('personUpdateDialogWidget').show()" rendered="#{userBean.admin}">
 							<f:setPropertyActionListener target="#{personBean.person}" value="#{person}" />
 						</p:commandButton>
 						<p:spacer width="10px" />
-						<p:commandButton value="#{bundle.delete}" icon="ui-icon-trash" update=":personDeleteDialogForm" onclick="PF('personDeleteDialogWidget').show()" >
+						<p:commandButton value="#{bundle.delete}" icon="ui-icon-trash" update=":personDeleteDialogForm" onclick="PF('personDeleteDialogWidget').show()" rendered="#{userBean.admin}">
 							<f:setPropertyActionListener target="#{personBean.person}" value="#{person}" />
 						</p:commandButton>
 						<p:spacer width="10px" />
 						<p:commandButton value="#{bundle.personEditLanguages}" icon="ui-icon-contact" ajax="false"
-							action="#{personBean.editPersonLanguages()}">
+							action="#{personBean.editPersonLanguages()}" rendered="#{userBean.admin}">
 								<f:setPropertyActionListener target="#{personBean.person}" value="#{person}" />
 						</p:commandButton>
 						<p:commandButton value="#{bundle.personEditCity}" icon="ui-icon-contact" ajax="false"
-							action="#{personBean.editPersonCity()}">
+							action="#{personBean.editPersonCity()}" rendered="#{userBean.admin}">
 								<f:setPropertyActionListener target="#{personBean.person}" value="#{person}" />
 						</p:commandButton>
 					</p:column>
 
 				</p:dataTable>
 				<p:commandButton value="#{bundle.create} #{bundle.person}" icon="ui-icon-plus" update=":personCreateDialogForm"
-					actionListener="#{personBean.resetPerson()}" onclick="PF('personCreateDialogWidget').show()" />
+					actionListener="#{personBean.resetPerson()}" onclick="PF('personCreateDialogWidget').show()" rendered="#{userBean.admin}" />
 			</h:form>
 
-			<ui:include src="/pages/public/person/dialogs/personCreateDialog.xhtml" />
-			<ui:include src="/pages/public/person/dialogs/personUpdateDialog.xhtml" />
-			<ui:include src="/pages/public/person/dialogs/personDeleteDialog.xhtml" />
-			<ui:include src="/pages/public/person/dialogs/personDetailDialog.xhtml" />
+			<ui:include src="/pages/protected/admin/person/dialogs/personCreateDialog.xhtml" />
+			<ui:include src="/pages/protected/admin/person/dialogs/personUpdateDialog.xhtml" />
+			<ui:include src="/pages/protected/admin/person/dialogs/personDeleteDialog.xhtml" />
+			<ui:include src="/pages/protected/admin/person/dialogs/personDetailDialog.xhtml" />
 		</ui:define>
 	</ui:composition>
 </h:body>
