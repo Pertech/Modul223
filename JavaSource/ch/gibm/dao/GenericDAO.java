@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -34,7 +35,13 @@ abstract class GenericDAO<T> implements Serializable {
 	}
 
 	public T update(T entity) {
-		return EntityManagerHelper.getEntityManager().merge(entity);
+		try {
+			return EntityManagerHelper.getEntityManager().merge(entity);
+		} catch (OptimisticLockException e) {
+			e.printStackTrace();
+			return null;
+		}
+			
 	}
 
 	public T find(int entityID) {

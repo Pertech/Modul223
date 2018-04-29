@@ -21,7 +21,8 @@ public class User implements Serializable{
 	@Id
 	private String user_name;
 	private String password;
-
+	private boolean dark;
+	
 	public User() {
 	}
 	
@@ -39,6 +40,10 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void setDark(boolean dark) {
+		this.dark = dark;
 	}
 
 	public boolean isAdmin() {
@@ -65,6 +70,10 @@ public class User implements Serializable{
 		}
 	}
 	
+	public boolean isDark() {
+		return dark;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof User) {

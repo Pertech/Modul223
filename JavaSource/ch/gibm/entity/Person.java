@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 @Entity
 
@@ -30,7 +31,10 @@ public class Person implements Serializable {
 	private String name;
 	private String firstname;
 	private int yearOfBirth;
-
+	
+	@Version
+	private long version;
+	
 	@ManyToMany
 	private List<Language> languages;
 	
@@ -44,6 +48,14 @@ public class Person implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 	public String getName() {

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.persistence.OptimisticLockException;
+import javax.persistence.RollbackException;
 
 import com.sun.faces.context.flash.ELFlash;
 
@@ -56,6 +58,11 @@ public class PersonBean extends AbstractBean implements Serializable {
 			getPersonFacade().updatePerson(person);
 			closeDialog();
 			displayInfoMessageToUser("Updated with success");
+			loadPersons();
+			resetPerson();
+		} catch  (RollbackException e) {
+			closeDialog();
+			displayErrorMessageToUser("User was already updated. Please try again.");
 			loadPersons();
 			resetPerson();
 		} catch (Exception e) {

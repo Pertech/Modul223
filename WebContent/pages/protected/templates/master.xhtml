@@ -10,7 +10,8 @@
 
 <h:head>
 	<title>JSF @ GIBM</title>
-	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="main_dark.css" rendered="#{userBean.dark}"/>
+	<h:outputStylesheet library="css" name="main.css" rendered="#{userBean.notDark}"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </h:head>
 

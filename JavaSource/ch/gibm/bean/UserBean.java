@@ -8,6 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import ch.gibm.entity.User;
+import ch.gibm.facade.PersonFacade;
 import ch.gibm.facade.UserFacade;
 
 @SessionScoped
@@ -15,6 +16,7 @@ import ch.gibm.facade.UserFacade;
 public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private User user;
+	private UserFacade userFacade;
 	
 	public boolean isAdmin() {
 		return this.getUser() != null ? user.isAdmin() : false;
@@ -22,6 +24,22 @@ public class UserBean implements Serializable {
 	
 	public boolean isDefaultUser() {
 		return this.getUser() != null ? user.isUser() : false;
+	}
+	
+	public boolean isDark() {
+		return this.getUser() != null ? user.isDark() : false;
+	}
+	
+	public boolean isNotDark() {
+		return this.getUser() != null ? !user.isDark() : false;
+	}
+
+	public void updateUser() {
+		try {
+			getUserFacade().updateUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String logout() {
@@ -39,5 +57,13 @@ public class UserBean implements Serializable {
 			}
 		}
 		return user;
+	}
+
+	public UserFacade getUserFacade() {
+		if (userFacade == null) {
+			userFacade = new UserFacade();
+		}
+
+		return userFacade;
 	}
 }
