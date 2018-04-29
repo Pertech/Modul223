@@ -3,17 +3,9 @@ package ch.gibm.facade;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import ch.gibm.dao.CityDAO;
 import ch.gibm.dao.EntityManagerHelper;
-import ch.gibm.dao.LanguageDAO;
-import ch.gibm.dao.PersonDAO;
 import ch.gibm.dao.UserDAO;
 import ch.gibm.dao.User_RoleDAO;
-import ch.gibm.entity.City;
-import ch.gibm.entity.Language;
-import ch.gibm.entity.Person;
 import ch.gibm.entity.User;
 import ch.gibm.entity.User_Role;
 
@@ -41,6 +33,14 @@ public class UserFacade implements Serializable {
 		User persistedUser = userDAO.find(user.getUserName());
 		persistedUser.setDark(user.isDark());
 		EntityManagerHelper.commitAndCloseTransaction();
+	}
+	
+	public List<User> listAll() {
+		EntityManagerHelper.beginTransaction();
+		List<User> result = userDAO.findAll();
+		EntityManagerHelper.commitAndCloseTransaction();
+
+		return result;
 	}
 	
 	public User findUser(String userName) {

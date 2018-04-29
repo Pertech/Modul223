@@ -21,6 +21,12 @@ public class User_RoleFacade implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private User_RoleDAO user_roleDAO = new User_RoleDAO();
+
+	public void createUserRole(User_Role user_role) {
+		EntityManagerHelper.beginTransaction();
+		user_roleDAO.save(user_role);
+		EntityManagerHelper.commitAndCloseTransaction();
+	}
 	
 	public List<User_Role> findUserRoles(User userName) {
 		EntityManagerHelper.beginTransaction();
